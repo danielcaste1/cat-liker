@@ -68,6 +68,11 @@ body{
     font-size: 1.2rem;
     cursor: pointer;
 }
+.reload__container {
+    display: flex;
+    margin: 2rem;
+    padding: 1rem;
+}
 .like__button{
     padding: .2rem 1rem;
     box-shadow: 0px 0px 5px #EF233C;
@@ -145,3 +150,9 @@ body{
 .modal__card button:active {
     transform: scale(.8);
 }
+
+@media only screen and (max-width: 600px) {
+    .images {
+        grid-template-columns: 1fr;
+    }
+  }
