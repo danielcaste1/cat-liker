@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Flujo de comunicación entre usuarios, Frontend y Backend.
 
 ### Server side rendering
@@ -43,3 +44,7 @@ User-based authentitation
 #### POST -> CREATE
 #### PUT & PATCH -> UPDATE
 #### DELETE -> DELETE
+=======
+# cat-liker
+Select the cat that you like the most!
+>>>>>>> b00227958f8667c3fe7cfacf9ac2a1c29c33bc4e
