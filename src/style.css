@@ -8,6 +8,7 @@ body{
     position: relative;
 }
 .app__title h1 {
+    text-align: center;
     margin: 2rem auto;
     color: #646971;
 }
@@ -15,8 +16,20 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 720px;
+    max-width: 1080px;
     margin: 0 auto;
+}
+.description{
+    font-size: 1.2rem;
+    margin: 2rem auto;
+    color: #646971;
+}
+.description--secondary{
+    font-size: .8rem;
+    color: #acacac;
+}
+.description--secondary a {
+    color: #acacac;
 }
 .images {
     display: grid;
