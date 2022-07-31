@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon-16x16.png">
     <script src="https://kit.fontawesome.com/484de7a2ee.js" crossorigin="anonymous"></script>
     <title>Choose a cat!</title>
 </head>
 <body>
-    
-    <div class="container">
-        <div class="app__title">
+    <header class="header">
+        <a href="./index.html"><i class="fa-solid fa-cat"></i></a>
+    </header>
+    <main class="main container">
+        <div class="section__title">
             <h1>Like your favorite cat</h1>
+            <p class="description">
+                Hit the like button to the cat you like the most.
+            </p>
+            <p class="description description--secondary">
+                This application was made to practice API REST calls, using <a href="https://thecatapi.com/" target="_blank" >The Cat API</a>
+            </p>
+            
         </div>
         <div class="images">
             
@@ -25,9 +35,25 @@
                 <i class="fa-solid fa-arrow-rotate-right"></i>
             </button>
         </div>
-    </div>
+        <div class="add__container">
+            <button class="add__button button" type="button" id="addCat">
+                <i class="fa-solid fa-upload"></i> Upload
+            </button>
+        </div>
+    </main>
+    <section class="container recent-liked-cats">
+        <div class="feature">
+            <h2 class="section__title" >Recent liked cats</h2>
+            <div class="favs__container">
 
+            </div>
+        </div>
+    </section>
+    <section class="add-your-cat">
 
+    </section>
+
+    
     <div class="modal__container">
         <div class="modal__card">
             <h2>What is your name?</h2>
@@ -37,6 +63,6 @@
             </button>
         </div>
     </div>
-    <script src="./index.js"></script>
+    <script src="./assets/index.js"></script>
 </body>
 </html>
