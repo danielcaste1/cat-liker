@@ -1,3 +1,19 @@
+const BASEURL = 'https://api.thecatapi.com/v1';
+const API_KEY = '39b0444d-a87b-4b8a-bbc6-3ca0425d8ab5';
+window.addEventListener("load", ()=>{
+    printfavCats();
+    printCats();
+    checkSessionStorage();
+})
+
+const checkSessionStorage = ()=>{
+    const isLogged = sessionStorage.getItem("userName");
+    const modal = document.querySelector(".modal__container");
+    if (isLogged){
+        modal.style.display = "none";
+    }
+}
+
 const startButton = document.querySelector("#startButton");
 startButton.addEventListener("click", async ()=>{
     const inputName = document.querySelector("#userName");
@@ -11,25 +27,20 @@ startButton.addEventListener("click", async ()=>{
 
     }
 });
-
-
 const reloadCatButton = document.querySelector("#reloadCat");
 reloadCatButton.addEventListener("click", async ()=>{
     printCats();
 });
 
-const BASEURL = 'https://api.thecatapi.com/v1';
-const API_KEY = '39b0444d-a87b-4b8a-bbc6-3ca0425d8ab5';
-
-
-
-
-
-
 
 
 const getCat = async()=>{
     const response =  await fetch(`${BASEURL}/images/search?limit=2&api_key=${API_KEY}`); //Nótese cómo pasamos la API key 
+    const data = await response.json();
+    return data;
+};
+const getFavCats = async()=>{
+    const response =  await fetch(`${BASEURL}/favourites?&api_key=${API_KEY}`); //Nótese cómo pasamos la API key 
     const data = await response.json();
     return data;
 };
@@ -51,8 +62,8 @@ const postFavCat = async(catId)=>{
         body : JSON.stringify(dataToSend)
     });
     const data = await response.json();
-    console.log(data);
-    printCats()
+    printfavCats();
+    printCats();
 };
 
 const deleteFavCat = async(catId)=>{
@@ -66,6 +77,9 @@ const deleteFavCat = async(catId)=>{
     const data = await response.json();
     return data;
 };
+
+
+
 const printCats= async()=>{
     reloadCatButton.setAttribute("disabled", true);
     const container = document.querySelector(".images");
@@ -103,4 +117,49 @@ const printCats= async()=>{
     reloadCatButton.removeAttribute("disabled");
 }
 
-printCats();
+const printfavCats= async()=>{
+    reloadCatButton.setAttribute("disabled", true);
+    const container = document.querySelector(".favs__container");
+    while (container.children.length) {
+        const firstChild = container.firstChild;
+        container.removeChild(firstChild);
+
+    }
+    const cats = await getFavCats();
+    const likedCats = cats.reduce((array, cat)=>{
+        const catExists = array.findIndex((item)=> item.url === cat.image.url);
+        if(catExists < 0){
+            array.push({
+                url: cat.image.url,
+                likedBy: cat.sub_id,
+                likedAt: cat.created_at,
+            })
+        }
+        return array
+    }, [])
+    likedCats.sort((a, b)=>{
+        const parsedDateA = Date.parse(a.likedAt);
+        const parsedDateB = Date.parse(b.likedAt);
+        return parsedDateB - parsedDateA  
+    })
+    const catsNodes = likedCats.map(cat => {
+        const cardContainer = document.createElement("div");
+        cardContainer.classList.add("card--liked-cat");
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add("image__container");
+        const img = document.createElement("img");
+        img.setAttribute("src", cat.url);      
+        imgContainer.append(img);
+        cardContainer.append(imgContainer);
+        const p = document.createElement("p");
+        p.classList.add("likedBy");
+        p.innerHTML = `<li class="fa-solid fa-heart"></li>   Liked by ${cat.likedBy}`
+        cardContainer.append(imgContainer, p);
+        return cardContainer;
+    });
+    catsNodes.forEach(node => {
+        container.appendChild(node);
+    });
+    reloadCatButton.removeAttribute("disabled");
+}
+
