@@ -136,7 +136,6 @@ const printfavCats= async()=>{
         return parsedDateB - parsedDateA  
     })
     const catsNodes = likedCats.map(cat => {
-        console.log(cat);
         const cardContainer = document.createElement("div");
         cardContainer.classList.add("card--liked-cat");
         const imgContainer = document.createElement("div");
@@ -164,7 +163,7 @@ const printfavCats= async()=>{
 
         //
         const user = sessionStorage.getItem("userName");
-        if(user.toUpperCase == cat.likedBy.toUpperCase){
+        if(user.toUpperCase() == cat.likedBy.toUpperCase()){
             imageDescription.append(unlike);
         }
 
