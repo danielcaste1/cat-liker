@@ -49,5 +49,11 @@ User-based authentitation
 
 ### Headers HTTP
 
-Headers ➡️ Información de como se comunicará la información al Backend.
+
 Body ➡️ Información a comunicar al Backend.
+Headers ➡️ Información de como se comunicará la información al Backend.
+
+## Headers
+
+De autorizacion, para mandar una API_KEY ➡️ x-api-key
+Content Type, habla del formato en que se realizará el envío de información, habitualmente application/json
