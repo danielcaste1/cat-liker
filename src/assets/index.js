@@ -13,34 +13,25 @@ const checkSessionStorage = ()=>{
         modal.style.display = "none";
     }
 }
-
-const startButton = document.querySelector("#startButton");
-startButton.addEventListener("click", async ()=>{
-    const inputName = document.querySelector("#userName");
-    if(!inputName.value){
-        inputName.classList.toggle("input--error", true);
-    }else{
-        const modal = document.querySelector(".modal__container");
-        modal.style.display = "none";
-        inputName.classList.toggle("input--error", false);
-        sessionStorage.setItem("userName", inputName.value)
-
-    }
-});
-const reloadCatButton = document.querySelector("#reloadCat");
-reloadCatButton.addEventListener("click", async ()=>{
-    printCats();
-});
-
-
-
 const getCat = async()=>{
-    const response =  await fetch(`${BASEURL}/images/search?limit=2&api_key=${API_KEY}`); //Nótese cómo pasamos la API key 
+    const response =  await fetch(`${BASEURL}/images/search?limit=2`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": 'application/json',
+            "x-api-key": API_KEY
+        }
+    });
     const data = await response.json();
     return data;
 };
 const getFavCats = async()=>{
-    const response =  await fetch(`${BASEURL}/favourites?&api_key=${API_KEY}`); //Nótese cómo pasamos la API key 
+    const response =  await fetch(`${BASEURL}/favourites`,{
+        method: 'GET',
+        headers: {
+            "Content-Type": 'application/json',
+            "x-api-key": API_KEY
+        }
+    });
     const data = await response.json();
     return data;
 };
@@ -75,6 +66,7 @@ const deleteFavCat = async(catId)=>{
         },
     });
     const data = await response.json();
+    printfavCats();
     return data;
 };
 
@@ -130,6 +122,7 @@ const printfavCats= async()=>{
         const catExists = array.findIndex((item)=> item.url === cat.image.url);
         if(catExists < 0){
             array.push({
+                id : cat.id,
                 url: cat.image.url,
                 likedBy: cat.sub_id,
                 likedAt: cat.created_at,
@@ -143,6 +136,7 @@ const printfavCats= async()=>{
         return parsedDateB - parsedDateA  
     })
     const catsNodes = likedCats.map(cat => {
+        console.log(cat);
         const cardContainer = document.createElement("div");
         cardContainer.classList.add("card--liked-cat");
         const imgContainer = document.createElement("div");
@@ -151,10 +145,31 @@ const printfavCats= async()=>{
         img.setAttribute("src", cat.url);      
         imgContainer.append(img);
         cardContainer.append(imgContainer);
+        const imageDescription = document.createElement("div");
+        imageDescription.classList.add("image__description");
         const p = document.createElement("p");
         p.classList.add("likedBy");
-        p.innerHTML = `<li class="fa-solid fa-heart"></li>   Liked by ${cat.likedBy}`
-        cardContainer.append(imgContainer, p);
+        p.innerHTML = `<li class="fa-solid fa-heart"></li>   Liked by ${cat.likedBy}`;
+        imageDescription.append(p);
+
+        //Optional unlike button.
+        const unlike = document.createElement("button");
+        unlike.setAttribute("type", "button");
+        unlike.classList.add("button", "unlikeButton");
+        unlike.innerHTML = `<i class="fa-solid fa-heart-crack"></i> Unlike`;
+        unlike.addEventListener("click", ()=>{
+            deleteFavCat(cat.id)
+        });
+
+
+        //
+        const user = sessionStorage.getItem("userName");
+        if(user.toUpperCase == cat.likedBy.toUpperCase){
+            imageDescription.append(unlike);
+        }
+
+
+        cardContainer.append(imgContainer, imageDescription);
         return cardContainer;
     });
     catsNodes.forEach(node => {
@@ -162,4 +177,27 @@ const printfavCats= async()=>{
     });
     reloadCatButton.removeAttribute("disabled");
 }
+const startButton = document.querySelector("#startButton");
+startButton.addEventListener("click", async ()=>{
+    const inputName = document.querySelector("#userName");
+    if(!inputName.value){
+        inputName.classList.toggle("input--error", true);
+    }else{
+        const modal = document.querySelector(".modal__container");
+        modal.style.display = "none";
+        inputName.classList.toggle("input--error", false);
+        sessionStorage.setItem("userName", inputName.value)
+        printfavCats();
+    }
+    
+});
+
+const reloadCatButton = document.querySelector("#reloadCat");
+reloadCatButton.addEventListener("click", async ()=>{
+    printCats();
+});
+
+
+
+
 

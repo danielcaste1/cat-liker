@@ -1,17 +1,17 @@
 # Flujo de comunicación entre usuarios, Frontend y Backend.
 
-### Server side rendering
+## Server side rendering
 Usuario va al navegador -> Mediante el navegador busca una página en el servidor -> el servidor devuelve una página HTML y sus demás archivos.
 
 
-### Single page application
+## Single page application
 Al ejemplo anterior, se le añade la interactividad con JavaScript para manipular el DOM, leer el HTML, actualizarlo, crear interacción con sus elementos, etc. Entre está interactividad incluye interacción con el servidor, con APIs,  estableciendo comunicación con el servidor, que asu vez se conecta con las DataBases
 
-### Endpoints y Query Parameters
+## Endpoints y Query Parameters
 url/this/is/and/endpoint?this=is&a=query&parameter
 
 
-### Status Codes
+## Status Codes
 
 1XX -> Respuestas Afirmativas.
 2XX -> Éxito.
@@ -19,14 +19,14 @@ url/this/is/and/endpoint?this=is&a=query&parameter
 4XX -> Errores en el cliente.
 500 -> Errores en el servidor.
 
-### Api Keys
+## Api Keys
 Controlan la autenticación y autorización
 #### Autenticación
 (No) Sé quien eres
 #### Autorización
 (No) Tienes acceso a este recurso.
 
-Estás API KEYS se pueden pasar por Query Parameter o por Headers 
+Estás API KEYS se pueden pasar por **Query Parameter o por Headers**.
 
 Hay distintas maneras de autenticarse
 Authorizathion: Basic
@@ -39,7 +39,15 @@ User-based authentitation
 
 ### Métodos HTTP
 
-#### GET -> READ
-#### POST -> CREATE
-#### PUT & PATCH -> UPDATE
-#### DELETE -> DELETE
+##### GET -> READ
+##### POST -> CREATE
+##### PUT & PATCH -> UPDATE
+##### DELETE -> DELETE
+
+
+
+
+### Headers HTTP
+
+Headers ➡️ Información de como se comunicará la información al Backend.
+Body ➡️ Información a comunicar al Backend.
