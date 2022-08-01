@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Albert Sans', sans-serif;
+    scroll-behavior: smooth;
 }
 body{
     position: relative;
@@ -131,6 +132,14 @@ body{
 .reload__button:active i {
     transform: rotate(360deg);
 }
+
+
+.favs__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-content: center;
+}
+
 .feature a {
     font-weight: 300;
     text-decoration: none;
@@ -142,8 +151,10 @@ body{
 }
 .card--liked-cat {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
+
 .card--liked-cat .image__container {
     max-width: 120px;
     max-height: 120px;
@@ -168,7 +179,7 @@ body{
 
 .modal__container {
     position: absolute;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     top: 0;
@@ -193,6 +204,11 @@ body{
     box-shadow: 0px 0px 20px #bbc4d2;
     border-radius: 4px;
 }
+.modal__card  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
 .modal__card h2{
     color: #646971;
 }
@@ -205,6 +221,10 @@ body{
     transition: 300ms;
     font-size: 1.2rem;
 
+}
+.modal__card a {
+    place-self: flex-end;
+    color: #EF233C;
 }
 .input--error {
     box-shadow: 0px 0px 5px #EF233C;
@@ -222,11 +242,17 @@ body{
     transform: scale(.8);
 }
 
+
 @media only screen and (max-width: 700px) {
     .images {
         grid-template-columns: 1fr;
     }
     .features__cards{
         flex-direction: column;
+    }
+    .favs__container {
+
+        grid-template-columns: repeat(2, 1fr);
+
     }
   }

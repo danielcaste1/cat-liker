@@ -55,12 +55,30 @@
 
     
     <div class="modal__container">
-        <div class="modal__card">
+        <div class="modal__card" id="userWelcome" >
             <h2>What is your name?</h2>
             <input type="text" name="name" autocomplete="name" id="userName" placeholder="Your name">
             <button class="button" id="startButton">
                 Start
             </button>
+        </div>
+    </div>
+    <div class="modal__container">
+        <div class="modal__card" id="uploadCat" >
+            <a href="#" id="closeModal">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+            <h2>Upload your cat!</h2>
+            <p class="description description--secondary">
+                Upload your own Cat pictures. Anything that doesn't contain a cat, or contains anything inappropriate will be rejected
+            </p>
+            <form id="uploadCatForm">
+                <input type="file" name="file" id="uploadCatImage">
+                <button id="uploadCatButton" type="button" class="button" >Send!</button>
+            </form>
+            <p class="status">
+                
+            </p>
         </div>
     </div>
     <script src="./assets/index.js"></script>
