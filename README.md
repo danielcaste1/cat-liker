@@ -57,3 +57,8 @@ Headers ➡️ Información de como se comunicará la información al Backend.
 
 De autorizacion, para mandar una API_KEY ➡️ x-api-key
 Content Type, habla del formato en que se realizará el envío de información, habitualmente application/json
+
+
+## Axios
+
+Is a Promise Based HTTP Client for JavaScript and Node.js
