@@ -9,8 +9,8 @@ window.addEventListener("load", ()=>{
 const checkSessionStorage = ()=>{
     const isLogged = sessionStorage.getItem("userName");
     const modal = document.querySelector(".modal__container");
-    if (isLogged){
-        modal.style.display = "none";
+    if (!isLogged){
+        modal.style.display = "flex";
     }
 }
 const getCat = async()=>{
@@ -55,6 +55,17 @@ const postFavCat = async(catId)=>{
     const data = await response.json();
     printfavCats();
     printCats();
+};
+const postMyCat = async(form)=>{
+    const response =  await fetch(`${BASEURL}/images/upload`, {
+        method: 'POST',
+        headers: {
+            "x-api-key": API_KEY
+        },
+        body : form
+    });
+    const data = await response.json();
+    return data;
 };
 
 const deleteFavCat = async(catId)=>{
@@ -119,6 +130,7 @@ const printfavCats= async()=>{
     }
     const cats = await getFavCats();
     const likedCats = cats.reduce((array, cat)=>{
+ 
         const catExists = array.findIndex((item)=> item.url === cat.image.url);
         if(catExists < 0){
             array.push({
@@ -163,8 +175,12 @@ const printfavCats= async()=>{
 
         //
         const user = sessionStorage.getItem("userName");
-        if(user.toUpperCase() == cat.likedBy.toUpperCase()){
-            imageDescription.append(unlike);
+        try {
+            if(user.toUpperCase() == cat.likedBy.toUpperCase()){
+                imageDescription.append(unlike);
+            }
+        } catch (error) {
+            
         }
 
 
@@ -182,7 +198,7 @@ startButton.addEventListener("click", async ()=>{
     if(!inputName.value){
         inputName.classList.toggle("input--error", true);
     }else{
-        const modal = document.querySelector(".modal__container");
+        const modal = document.querySelector("#userWelcome").parentNode;
         modal.style.display = "none";
         inputName.classList.toggle("input--error", false);
         sessionStorage.setItem("userName", inputName.value)
@@ -195,6 +211,33 @@ const reloadCatButton = document.querySelector("#reloadCat");
 reloadCatButton.addEventListener("click", async ()=>{
     printCats();
 });
+const addCatButton = document.querySelector("#addCat");
+addCatButton.addEventListener("click", async ()=>{
+    const modal = document.querySelector("#uploadCat") .parentNode;
+    modal.style.display = "flex";
+    document.location = "#";
+});
+
+
+const uploadCatButton = document.querySelector("#uploadCatButton");
+uploadCatButton.addEventListener("click", async ()=>{ 
+    const form = document.querySelector("#uploadCatForm");
+    const formData = new FormData(form);
+    const response = await postMyCat(formData);
+    const statusP = document.querySelector(".status");
+    statusP.innerHTML = "cargando...";
+    if(response.approved){
+        statusP.innerHTML = "Éxito";
+    }else{
+        statusP.innerHTML = "ocurrió un error";
+    }
+    console.log(response);
+})
+const closeModal = document.querySelector("#closeModal");
+closeModal.addEventListener("click", (e)=>{
+    const modal = e.target.parentNode.parentNode.parentNode;
+    modal.style.display = "none";
+})
 
 
 
