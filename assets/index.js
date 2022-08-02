@@ -235,7 +235,6 @@ uploadCatButton.addEventListener("click", async (e)=>{
     e.target.innerHTML = `<i class="loading fa-solid fa-spinner"></i>`;
     statusP.innerHTML = "";
     const response = await postMyCat(formData);
-    console.log(response);
     e.target.innerHTML = `Send`;
     if(response.approved){
         statusP.style.color = "#0ca678";
