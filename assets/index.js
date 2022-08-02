@@ -57,15 +57,19 @@ const postFavCat = async(catId)=>{
     printCats();
 };
 const postMyCat = async(form)=>{
-    const response =  await fetch(`${BASEURL}/images/upload`, {
-        method: 'POST',
-        headers: {
-            "x-api-key": API_KEY
-        },
-        body : form
-    });
-    const data = await response.json();
-    return data;
+    try {
+        const response =  await fetch(`${BASEURL}/images/upload`, {
+            method: 'POST',
+            headers: {
+                "x-api-key": API_KEY
+            },
+            body : form
+        });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return error
+    }
 };
 
 const deleteFavCat = async(catId)=>{
@@ -213,33 +217,37 @@ reloadCatButton.addEventListener("click", async ()=>{
 });
 const addCatButton = document.querySelector("#addCat");
 addCatButton.addEventListener("click", async ()=>{
+    const statusP = document.querySelector(".status");
+    statusP.innerHTML = "";
     const modal = document.querySelector("#uploadCat") .parentNode;
     modal.style.display = "flex";
     document.location = "#";
+    
+    
 });
 
 
 const uploadCatButton = document.querySelector("#uploadCatButton");
-uploadCatButton.addEventListener("click", async ()=>{ 
+uploadCatButton.addEventListener("click", async (e)=>{ 
     const form = document.querySelector("#uploadCatForm");
     const formData = new FormData(form);
-    const response = await postMyCat(formData);
     const statusP = document.querySelector(".status");
-    statusP.innerHTML = "cargando...";
-    if(response.approved){
-        statusP.innerHTML = "Éxito";
-    }else{
-        statusP.innerHTML = "ocurrió un error";
-    }
+    e.target.innerHTML = `<i class="loading fa-solid fa-spinner"></i>`;
+    statusP.innerHTML = "";
+    const response = await postMyCat(formData);
     console.log(response);
+    e.target.innerHTML = `Send`;
+    if(response.approved){
+        statusP.style.color = "#0ca678";
+        statusP.innerHTML = `Cat successfully uploaded 
+        Actually no image was uploaded, we just got a success response from the server`;
+    }else {
+        statusP.style.color = "#ef233c";
+        statusP.innerHTML = "That's not a cat";
+    }
 })
 const closeModal = document.querySelector("#closeModal");
 closeModal.addEventListener("click", (e)=>{
     const modal = e.target.parentNode.parentNode.parentNode;
     modal.style.display = "none";
 })
-
-
-
-
-

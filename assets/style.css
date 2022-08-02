@@ -199,7 +199,7 @@ body{
     padding: 2rem;
     margin: 1rem .5rem;
     max-width: 320px;
-    height: 320px;
+    min-height: 320px;
     background-color: #EDF2F4;
     box-shadow: 0px 0px 20px #bbc4d2;
     border-radius: 4px;
@@ -212,7 +212,7 @@ body{
 .modal__card h2{
     color: #646971;
 }
-.modal__card input {
+.modal__card input[type="text"] {
     text-decoration: none;
     border: none;
     outline: none;
@@ -236,12 +236,26 @@ body{
     box-shadow: 0px 0px 5px #EF233C;
     background-color: #EF233C;
     color: #EDF2F4;
+    margin: 2rem 0;
+    
+}
+.modal__card .status {
+    font-size: 1rem;
+    padding: .2rem 1rem;
     
 }
 .modal__card button:active {
     transform: scale(.8);
 }
+.loading {
+    animation: loading 1500ms linear 0ms infinite forwards;
+}
 
+
+@keyframes loading {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
 
 @media only screen and (max-width: 700px) {
     .images {
