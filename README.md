@@ -62,3 +62,16 @@ Content Type, habla del formato en que se realizará el envío de información, 
 ## Axios
 
 Is a Promise Based HTTP Client for JavaScript and Node.js
+
+## Mode
+CORS -> El backend limita con quien se intercambia información y de acuerdo a quien sea el cliente solicitante, va a bloquear o permitir el trabajo. Ejemplos de CORS (Same-origin) Esta propiedad de mode exisste tanto en Frontend como Backend (por defecto la configuracion es No CORS)
+
+caché -> Capacidad de recordar datos que hayan sido traidos anteriormente mediante una solicitud. Hay muchas opciones. Es mejor no tocar mucho de estas opciones, fetch tienen su propio algoritmo por defecto para validar el caché.
+
+redirect -> Es la accion a tomar cuando el backend devuelve un código 300 redirect. follow - error o manual.
+
+### Más allá de REST
+SendBeacon -> Consulta HTTP que no espera una respuesta. Llamados poco cruciales para la experiencia de usuarios.
+GraphQL -> Herramienta para no tener distintos EndPoints o Rutas para nuestra API, sino, todo en una misma API, y el Front configura cómo se recibe la información. Es díficil.
+Web Sockets -> Mantiene la comunicación con la AI abierta esperrando cambios de un lado o del otro para ejecutar aglo, de esta menra funcionan los chats en vivo.
+Dapps (Descentralized Apps) -> Web 3.0 WebApps -> Descentralizada.
