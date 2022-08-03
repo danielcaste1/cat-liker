@@ -246,7 +246,7 @@ uploadCatButton.addEventListener("click", async (e)=>{
     }
 })
 const closeModal = document.querySelector("#closeModal");
-closeModal.addEventListener("click", (e)=>{
-    const modal = e.target.parentNode.parentNode.parentNode;
-    modal.style.display = "none";
+closeModal.addEventListener("click", ()=>{
+    const modals = document.querySelectorAll(".modal__container");
+    modals.forEach(modal => modal.style.display ="none")
 })
